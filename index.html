@@ -9,12 +9,11 @@
 <body>
     <div class="container">
         <h1>Task Manager</h1>
-        <div id="error">
-
+        <div id="error" class="error">
         </div>
         <form action="" id="taskform">
-            <input type="text" name="name">
-            <button>Add</button>
+            <input type="text" id="taskinput" placeholder="Enter a new task">
+            <button type="submit" class="addbtn">Add</button>
         </form>
         <section class="filters">
             <button  data-filters="all">All</button>
