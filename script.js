@@ -31,6 +31,7 @@ taskForm.addEventListener('submit', function(e){
     tasks.push(newTask);
     taskInput.value = "";
     saveTasks();
+    renderTasks();
    
 });
 
@@ -49,4 +50,32 @@ function toggleDone(id){
     });
     saveTasks();
     renderTasks();
+}
+function editTask(id){
+    let taskEl = document.querySelector([data-id='${id}']);
+    let task = tasks.find(function(t){ return t.id === id });
+
+    let input = document.createElement('input');
+    input.type = 'text';
+    input.value = task.text;
+    input.className = 'edit-input';
+
+    let saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.className = 'save-btn';
+
+    let container = taskEl.querySelector('.task-content');
+    container.innerHTML = '';
+    container.append(input, saveBtn);
+
+    saveBtn.addEventListener('click', function(){
+        let newText = input.value.trim();
+        if(!newText){
+            alert("Task cannot be empty.");
+            return;
+        }
+        task.text = newText;
+        saveTasks();
+        renderTasks();
+    });
 }
