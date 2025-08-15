@@ -89,3 +89,19 @@ function renderTasks(){
         filteredTasks = tasks.filter(function(t){ return !t.done });
     }
 }
+filteredTasks.forEach(function(task){
+    let div = document.createElement('div');
+    div.classList.add('task');
+    if(task.done) div.classList.add('completed');
+    div.setAttribute('data-id', task.id);
+
+    let left = document.createElement('div');
+    left.className = 'task-content';
+
+    let checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = task.done;
+    checkbox.addEventListener('change', function(){
+        toggleDone(task.id);
+    });
+})
