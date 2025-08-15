@@ -79,3 +79,13 @@ function editTask(id){
         renderTasks();
     });
 }
+function renderTasks(){
+    taskList.innerHTML = "";
+
+    let filteredTasks = tasks;
+    if(currentFilter === 'completed'){
+        filteredTasks = tasks.filter(function(t){ return t.done });
+    } else if(currentFilter === 'pending'){
+        filteredTasks = tasks.filter(function(t){ return !t.done });
+    }
+}
