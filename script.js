@@ -34,3 +34,8 @@ taskForm.addEventListener('submit', function(e){
    
 });
 
+function deleteTask(id){
+    tasks = tasks.filter(function(task){ return task.id !== id });
+    saveTasks();
+    renderTasks();
+}
