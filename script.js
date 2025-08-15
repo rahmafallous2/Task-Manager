@@ -79,6 +79,7 @@ function editTask(id){
         renderTasks();
     });
 }
+
 function renderTasks(){
     taskList.innerHTML = "";
 
@@ -88,20 +89,50 @@ function renderTasks(){
     } else if(currentFilter === 'pending'){
         filteredTasks = tasks.filter(function(t){ return !t.done });
     }
-}
-filteredTasks.forEach(function(task){
-    let div = document.createElement('div');
-    div.classList.add('task');
-    if(task.done) div.classList.add('completed');
-    div.setAttribute('data-id', task.id);
 
-    let left = document.createElement('div');
-    left.className = 'task-content';
+    filteredTasks.forEach(function(task){
+        let div = document.createElement('div');
+        div.classList.add('task');
+        if(task.done) div.classList.add('completed');
+        div.setAttribute('data-id', task.id);
 
-    let checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.checked = task.done;
-    checkbox.addEventListener('change', function(){
-        toggleDone(task.id);
+        let left = document.createElement('div');
+        left.className = 'task-content';
+
+        let checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.done;
+        checkbox.addEventListener('change', function(){
+            toggleDone(task.id);
+        });
+
+        let span = document.createElement('span');
+        span.textContent = task.text;
+
+        left.append(checkbox, span);
+
+        let right = document.createElement('div');
+        right.className = 'task-actions';
+
+        let editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+        editBtn.className = 'edit-btn';
+        editBtn.addEventListener('click', function(){
+            editTask(task.id);
+        });
+
+        let deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.addEventListener('click', function(){
+            deleteTask(task.id);
+        });
+
+        right.append(editBtn, deleteBtn);
+
+        div.append(left, right);
+        taskList.append(div);
     });
-})
+}
+
+renderTasks();
