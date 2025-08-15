@@ -52,8 +52,11 @@ function toggleDone(id){
     renderTasks();
 }
 function editTask(id){
-    let taskEl = document.querySelector([data-id='${id}']);
+    let taskEl = taskList.querySelector(`[data-id='${id}']`);
+    if (!taskEl) return;
+
     let task = tasks.find(function(t){ return t.id === id });
+    if (!taskEl) return;
 
     let input = document.createElement('input');
     input.type = 'text';
@@ -65,6 +68,7 @@ function editTask(id){
     saveBtn.className = 'save-btn';
 
     let container = taskEl.querySelector('.task-content');
+    if (!container) return;
     container.innerHTML = '';
     container.append(input, saveBtn);
 
@@ -134,5 +138,14 @@ function renderTasks(){
         taskList.append(div);
     });
 }
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentFilter = btn.dataset.filter || btn.getAttribute('data-filters') || 'all'; // supports data-filter or data-filters
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTasks();
+  });
+});
+
 
 renderTasks();
