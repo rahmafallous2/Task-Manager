@@ -39,3 +39,14 @@ function deleteTask(id){
     saveTasks();
     renderTasks();
 }
+
+function toggleDone(id){
+    tasks = tasks.map(function(task){
+        if(task.id === id){
+            task.done = !task.done;
+        }
+        return task;
+    });
+    saveTasks();
+    renderTasks();
+}
