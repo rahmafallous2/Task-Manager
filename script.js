@@ -71,7 +71,7 @@ function editTask(id){
     saveBtn.addEventListener('click', function(){
         let newText = input.value.trim();
         if(!newText){
-            alert("Task cannot be empty.");
+            alert("Task can't be empty.");
             return;
         }
         task.text = newText;
